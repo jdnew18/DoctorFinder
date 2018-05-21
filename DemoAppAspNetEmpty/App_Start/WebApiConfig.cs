@@ -16,7 +16,7 @@ namespace DemoAppAspNetEmpty
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

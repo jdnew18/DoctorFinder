@@ -1,0 +1,22 @@
+﻿<div class="container" style="margin-left:25px">
+
+    <h2 style="margin-bottom:1.5rem">{{title}}</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Available During Emergency?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="doctor in doctors">
+                <td><a href="index.html/doctor/{{doctor.Doctor.Id}}">{{doctor.Doctor.Name}}</a></td>
+                <td>{{doctor.Doctor.Age}}</td>
+                <td>{{doctor.Doctor.IsAvailableDuringEmergency ? 'Yes' : 'No'}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

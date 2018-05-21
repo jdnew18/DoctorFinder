@@ -1,0 +1,24 @@
+﻿<div class="container" style="margin-left:25px">
+
+    <h2 style="margin-bottom:1.5rem">{{title}}</h2>
+
+    <div class="container" style="margin-bottom:2.3rem;background-color:aliceblue;">
+        <p><span style="font-weight:bold;">Name:</span> {{doctor.Doctor.Name}}</p>
+        <p><span style="font-weight:bold;">Age:</span> {{doctor.Doctor.Age}}</p>
+        <p><span style="font-weight:bold;">Available During Emergency?:</span> {{doctor.Doctor.IsAvailableDuringEmergency ? 'Yes' : 'No'}}</p>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ailment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="ailment in doctor.Ailments">
+                <td>{{ailment.Name}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

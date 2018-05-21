@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Find a Doc</title>
+    <base href="/">
+
+    <link rel="stylesheet" href="/Content/bootstrap.css">
+    <link rel="stylesheet" href="/Content/bootstrap-grid.css">
+    <link rel="stylesheet" href="/Content/bootstrap-reboot.css">
+
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular-route.js"></script>
+    <script src="/ScriptsNg/app.js"></script>
+    <script src="/ScriptsNg/routes.js"></script>
+    <script src="/ScriptsNg/patientsController.js"></script>
+    <script src="/ScriptsNg/patientController.js"></script>
+    <script src="/ScriptsNg/doctorsController.js"></script>
+    <script src="/ScriptsNg/doctorController.js"></script>
+    <script src="/ScriptsNg/hospitalsController.js"></script>
+</head>
+<body>
+    <div ng-app="myApp">
+        <div class="jumbotron" style="padding:0.5rem 2rem">
+            <h1>DoctorFinder</h1>
+            <p>Better doctor. Better you.</p>
+        </div>
+
+        <ul class="nav nav-tabs" style="margin-bottom:1.5rem;">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html/doctors">Doctors Directory</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html/patients">Patients Directory</a>
+            </li>
+        </ul>
+
+        <div ng-view></div>
+    </div>
+</body>
+</html>

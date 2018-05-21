@@ -1,0 +1,20 @@
+﻿<div class="container" style="margin-left:25px">
+
+    <h2 style="margin-bottom:1.5rem">{{title}}</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="patient in patients">
+                <td><a href="index.html/patient/{{patient.Patient.Id}}">{{patient.Patient.Name}}</a></td>
+                <td>{{patient.Patient.Age}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
