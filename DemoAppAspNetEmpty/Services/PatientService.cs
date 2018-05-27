@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 
 namespace DemoAppAspNetEmpty.Services
 {
     public class PatientService
     {
-        public List<PatientDto> GetAll()
+        public async Task<List<PatientDto>> GetAll()
         {
             using (var db = new PatientContext())
             {
@@ -20,7 +20,7 @@ namespace DemoAppAspNetEmpty.Services
                 try
                 {
                     var patients = new List<PatientDto>();
-                    foreach (var item in db.Patients.ToList())
+                    foreach (var item in await db.Patients.ToListAsync())
                     {
                         patients.Add(new PatientDto { Patient = item });
                     }
@@ -35,7 +35,7 @@ namespace DemoAppAspNetEmpty.Services
             }
         }
 
-        public PatientDto Get(int id)
+        public async Task<PatientDto> Get(int id)
         {
             using (var db = new PatientContext())
             {
@@ -43,7 +43,7 @@ namespace DemoAppAspNetEmpty.Services
 
                 try
                 {
-                    var data = db.PatientAilmentLookups.Where(p => p.PatientId == id)
+                    var data = await db.PatientAilmentLookups.Where(p => p.PatientId == id)
                                 .Join
                                 (
                                     db.Patients,
@@ -67,7 +67,7 @@ namespace DemoAppAspNetEmpty.Services
                                         Ailment = a
                                     }
                                 )
-                        .ToList();
+                        .ToListAsync();
 
                     var patient = new PatientDto();
                     patient.Ailments = new List<Ailment>();
@@ -105,7 +105,7 @@ namespace DemoAppAspNetEmpty.Services
             }
         }
 
-        public PatientDto Post(PatientDto patient)
+        public async Task<PatientDto> Post(PatientDto patient)
         {
             using (var db = new PatientContext())
             {
@@ -116,10 +116,14 @@ namespace DemoAppAspNetEmpty.Services
                         db.Patients.AddOrUpdate(patient.Patient);
                         db.PatientAilmentLookups.AddOrUpdate(patient.PatientAilmentLookups.ToArray());
 
+                        await db.SaveChangesAsync();
+                        transaction.Commit();
+
                         return patient;
                     }
                     catch (Exception ex)
                     {
+                        transaction.Rollback();
                         Console.WriteLine(ex);
                         throw;
                     }

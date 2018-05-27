@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 
 namespace DemoAppAspNetEmpty.Services
 {
     public class DoctorService
     {
-        public List<DoctorDto> GetAll()
+        public async Task<List<DoctorDto>> GetAll()
         {
             using (var db = new PatientContext())
             {
@@ -20,7 +20,7 @@ namespace DemoAppAspNetEmpty.Services
                 try
                 {
                     var doctors = new List<DoctorDto>();
-                    foreach (var item in db.Doctors.ToList())
+                    foreach (var item in await db.Doctors.ToListAsync())
                     {
                         doctors.Add(new DoctorDto { Doctor = item });
                     }
@@ -35,7 +35,7 @@ namespace DemoAppAspNetEmpty.Services
             }
         }
 
-        public DoctorDto Get(int id)
+        public async Task<DoctorDto> Get(int id)
         {
             using (var db = new PatientContext())
             {
@@ -43,7 +43,7 @@ namespace DemoAppAspNetEmpty.Services
 
                 try
                 {
-                    var data = db.DoctorAilmentLookups.Where(p => p.DoctorId == id)
+                    var data = await db.DoctorAilmentLookups.Where(p => p.DoctorId == id)
                                 .Join
                                 (
                                     db.Doctors,
@@ -67,7 +67,7 @@ namespace DemoAppAspNetEmpty.Services
                                         Ailment = a
                                     }
                                 )
-                        .ToList();
+                        .ToListAsync();
 
                     var doctor = new DoctorDto();
                     doctor.Ailments = new List<Ailment>();
@@ -107,7 +107,7 @@ namespace DemoAppAspNetEmpty.Services
             }
         }
 
-        public DoctorDto Post(DoctorDto doctor)
+        public async Task<DoctorDto> Post(DoctorDto doctor)
         {
             using (var db = new PatientContext())
             {
@@ -118,10 +118,14 @@ namespace DemoAppAspNetEmpty.Services
                         db.Doctors.AddOrUpdate(doctor.Doctor);
                         db.DoctorAilmentLookups.AddOrUpdate(doctor.DoctorAilmentLookups.ToArray());
 
+                        await db.SaveChangesAsync();
+                        transaction.Commit();
+
                         return doctor;
                     }
                     catch (Exception ex)
                     {
+                        transaction.Rollback();
                         Console.WriteLine(ex);
                         throw;
                     }
