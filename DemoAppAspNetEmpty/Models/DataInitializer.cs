@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DemoAppAspNetEmpty.Models
 {
@@ -110,6 +108,21 @@ namespace DemoAppAspNetEmpty.Models
                 new DoctorAilmentLookup{DoctorId=7,AilmentId=16}
             };
             doctorAilmentLookups.ForEach(s => context.DoctorAilmentLookups.Add(s));
+            context.SaveChanges();
+
+            var doctorRatings = new List<DoctorRating>
+            {
+                new DoctorRating{DoctorId=1,Rating=5,Date=DateTime.Now.AddDays(-18).Date,Title="Great Doctor!", Description="Dr. Srini Valasarayan is my favorite doctor. 2 thumbs up!"},
+                new DoctorRating{DoctorId=1,Rating=5,Date=DateTime.Now.AddDays(-15).Date,Title="Wow!", Description="Get this doc if you can!"},
+                new DoctorRating{DoctorId=1,Rating=2,Date=DateTime.Now.AddDays(-5).Date,Title="Not the Best Experience", Description="Treatment was good, office staff was rude and unhelpful. I do not recommend."},
+                new DoctorRating{DoctorId=1,Rating=4,Date=DateTime.Now,Title="4 Stars", Description="I like this doctor."},
+                new DoctorRating{DoctorId=3,Rating=4,Date=DateTime.Now.AddDays(-25).Date,Title="Pretty Good", Description="I liked the doctor but the wait took too long."},
+                new DoctorRating{DoctorId=3,Rating=3,Date=DateTime.Now.AddDays(-25).Date,Title="Good enough", Description="Treatment was not enjoyable and recovery took longer than expected."},
+                new DoctorRating{DoctorId=7,Rating=1,Date=DateTime.Now.AddDays(-35).Date,Title="Awful", Description="Dr. Nagoke is very unpleasant and condescending."},
+                new DoctorRating{DoctorId=7,Rating=1,Date=DateTime.Now.AddDays(-7).Date,Title="Very Rude!", Description="This Dr. does not take my insurance."},
+                new DoctorRating{DoctorId=7,Rating=5,Date=DateTime.Now.AddDays(-2).Date,Title="Loved it!!", Description="Perfect."},
+            };
+            doctorRatings.ForEach(s => context.DoctorRatings.Add(s));
             context.SaveChanges();
         }
     }

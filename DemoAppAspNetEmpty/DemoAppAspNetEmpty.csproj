@@ -938,6 +938,7 @@
     <Compile Include="Models\DataInitializer.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\DoctorAilmentLookup.cs" />
+    <Compile Include="Models\DoctorRating.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\PatientAilmentLookup.cs" />
     <Compile Include="Models\PatientContext.cs" />

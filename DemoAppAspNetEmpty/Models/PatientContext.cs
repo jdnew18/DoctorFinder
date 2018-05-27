@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace DemoAppAspNetEmpty.Models
 {
@@ -15,5 +11,6 @@ namespace DemoAppAspNetEmpty.Models
         public DbSet<Ailment> Ailments { get; set; }
         public DbSet<PatientAilmentLookup> PatientAilmentLookups { get; set; }
         public DbSet<DoctorAilmentLookup> DoctorAilmentLookups { get; set; }
+        public DbSet<DoctorRating> DoctorRatings { get; set; }
     }
 }

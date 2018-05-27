@@ -21,4 +21,26 @@
         </tbody>
     </table>
 
+    <div style="margin-top:3.5rem" ng-if="doctor.DoctorRatings.length > 0">
+        <p style="font-weight:bold;">Average Rating: {{averageRating}}</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rating</th>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="rating in doctor.DoctorRatings">
+                    <td>{{rating.Rating}}</td>
+                    <td>{{rating.Date | date:'MM/dd/yyyy'}}</td>
+                    <td>{{rating.Title}}</td>
+                    <td>{{rating.Description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

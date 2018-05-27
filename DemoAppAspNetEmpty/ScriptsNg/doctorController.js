@@ -12,8 +12,20 @@
             params: { id: $routeParams.id }
         }).then(function (response) {
             $scope.doctor = response.data;
+            $scope.averageRating = $scope.calculateAverageRating($scope.doctor.DoctorRatings);
         }, function (response) {
             console.log(response.data);
-        });
+            });
+
+        $scope.calculateAverageRating = function (data) {
+            var sum = 0;
+            for (var i = 0; i < data.length; i++) {
+                sum += parseInt(data[i].Rating);
+            }
+
+            var avg = sum / data.length;
+
+            return avg;
+        };
     }
 });

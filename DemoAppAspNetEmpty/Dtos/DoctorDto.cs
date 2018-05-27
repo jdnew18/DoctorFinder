@@ -1,8 +1,5 @@
 ﻿using DemoAppAspNetEmpty.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DemoAppAspNetEmpty.Dtos
 {
@@ -13,5 +10,7 @@ namespace DemoAppAspNetEmpty.Dtos
         public List<Ailment> Ailments { get; set; }
 
         public List<DoctorAilmentLookup> DoctorAilmentLookups { get; set; }
+
+        public List<DoctorRating> DoctorRatings { get; set; }
     }
 }

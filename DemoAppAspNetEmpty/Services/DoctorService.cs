@@ -67,22 +67,42 @@ namespace DemoAppAspNetEmpty.Services
                                         Ailment = a
                                     }
                                 )
+                                .GroupJoin
+                                (
+                                    db.DoctorRatings,
+                                    _data => _data.DoctorAilmentLookup.DoctorId,
+                                    d => d.DoctorId,
+                                    (_data, d) => new
+                                    {
+                                        DoctorAilmentLookup = _data.DoctorAilmentLookup,
+                                        Doctor = _data.Doctor,
+                                        Ailment = _data.Ailment,
+                                        DoctorRating = d.DefaultIfEmpty()
+                                    }
+                                )
                         .ToListAsync();
 
                     var doctor = new DoctorDto();
                     doctor.Ailments = new List<Ailment>();
                     doctor.DoctorAilmentLookups = new List<DoctorAilmentLookup>();
+                    doctor.DoctorRatings = new List<DoctorRating>();
                     if (data != null && data.First() != null)
                     {
+                        doctor.Doctor = new Doctor
+                        {
+                            Id = data.First().Doctor.Id,
+                            Name = data.First().Doctor.Name,
+                            Age = data.First().Doctor.Age,
+                            IsAvailableDuringEmergency = data.First().Doctor.IsAvailableDuringEmergency
+                        };
+
+                        if (data.First().DoctorRating != null && data.First().DoctorRating.First() != null)
+                        {
+                            doctor.DoctorRatings = data.First().DoctorRating.ToList();
+                        }
+
                         foreach (var item in data)
                         {
-                            doctor.Doctor = new Doctor
-                            {
-                                Id = item.Doctor.Id,
-                                Name = item.Doctor.Name,
-                                Age = item.Doctor.Age,
-                                IsAvailableDuringEmergency = item.Doctor.IsAvailableDuringEmergency
-                            };
                             doctor.Ailments.Add(new Ailment
                             {
                                 Id = item.Ailment.Id,
